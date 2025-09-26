@@ -18,3 +18,6 @@ Logs
 IDE files
 .vscode/
 .idea/
+
+report.html
+users.json

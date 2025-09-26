@@ -1,5 +1,5 @@
 import pytest
-import requests # type: ignore
+import requests
 import random
 import string
 from faker import Faker

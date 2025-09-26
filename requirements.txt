@@ -1,0 +1,7 @@
+Flask
+pytest
+pytest-order
+requests
+Faker
+uuid
+pytest-html
