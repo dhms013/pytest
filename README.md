@@ -1,8 +1,9 @@
 # Pytest for beginners
 
-## Note :
-- this is only backup repositories. I'm starting to learn API test using Python in my free time
-- this Repository contain custom Flask app, and custom Pytest scripts to automate API testing
+This is only backup repository. I'm starting to learn API test using Python in my free time
+
+## Note
+This repository contains a custom Flask application and custom Pytest scripts for automating API testing. The test scenarios cover simple CRUD API testing. The Flask application automatically generates JSON file as the database, and the Pytest scripts automatically generate and open HTML reports. Ensure you have Python installed before attempting this repository.
 
 ## Steps to start this pytest using any terminal :
 1. python -m venv venv       # Create your virtual environment
