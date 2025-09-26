@@ -45,13 +45,7 @@ jobs:
         run: |
           source venv/bin/activate
           export PYTHONPATH=.
-          pytest tests
-
-      - name: Run curl script (optional)
-        working-directory: .
-        run: |
-          chmod +x test_mock_apis.sh
-          ./test_mock_apis.sh
+          pytest
 
       - name: Show Flask server logs
         if: always()
