@@ -3,9 +3,7 @@ import sys
 import os
 import webbrowser
 
-# --- Configuration ---
-# The paths below assume you are running this script from the root /pytest directory.
-# This variable points to the Python executable inside the currently active virtual environment (if activated).
+
 PYTHON_EXECUTABLE = sys.executable 
 REPORT_FILE = "report.html"
 
@@ -18,14 +16,13 @@ def run_tests():
     command = [
         PYTHON_EXECUTABLE,
         "-m", "pytest", 
-        "-s", # Enables standard output (shows print statements from tests)
+        "-s",
         f"--html={REPORT_FILE}", 
         "--self-contained-html"
     ]
     
     try:
-        # check=False ensures the script doesn't crash if tests fail, 
-        # allowing the report to still be generated.
+        # check=False ensures the script doesn't crash if tests fail, allowing the report to still be generated.
         result = subprocess.run(command, check=False) 
         return result.returncode == 0
     except FileNotFoundError:
