@@ -1,4 +1,4 @@
-name: Pytest
+name: Pytest CI
 
 on: [push, pull_request]
 
@@ -46,6 +46,13 @@ jobs:
           source venv/bin/activate
           export PYTHONPATH=.
           python tasks.py
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: report.html
+          path: .
+          retention-days: 3
 
       - name: Show Flask server logs
         if: always()
