@@ -3,7 +3,8 @@
 This is only backup repository. I'm starting to learn API test using Python in my free time
 
 ## Note
-This repository contains a custom Flask application and custom Pytest scripts for automating API testing. The test scenarios cover simple CRUD API testing. The Flask application automatically generates JSON file as the database, and the Pytest scripts automatically generate and open HTML reports. Ensure you have Python installed before attempting this repository.
+- This repository contains a custom Flask application and custom Pytest scripts for automating API testing. The test scenarios cover simple CRUD API testing. The Flask application automatically generates JSON file as the database, and the Pytest scripts automatically generate and open HTML reports. Ensure you have Python installed before attempting this repository.
+- This repository tested on Windows 11, and WSL2. I can't test it using macOS or Linux desktop since I don't have Mac and not installing Linux desktop. In the WSL, pytest running just fine, but the auto-open html.report is failing and I still can't manage to solve it.
 
 ## Steps to start this pytest using any terminal :
 1. python -m venv venv       # Create your virtual environment
