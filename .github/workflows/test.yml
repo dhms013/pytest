@@ -45,7 +45,7 @@ jobs:
         run: |
           source venv/bin/activate
           export PYTHONPATH=.
-          pytest
+          python tasks.py
 
       - name: Show Flask server logs
         if: always()
