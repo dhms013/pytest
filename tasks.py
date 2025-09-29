@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import os
-import webbrowser
+import webbrowser 
 
 PYTHON_EXECUTABLE = sys.executable 
 REPORT_FILE = "report.html"
@@ -45,32 +45,41 @@ def run_tests_and_open():
         # 3. Attempt to open the report based on the operating system
         try:
             if sys.platform.startswith('win'):
-                # Use webbrowser for native Windows environments
+                # Use standard Python webbrowser for native Windows
                 webbrowser.open_new_tab(f"file://{report_path}")
-                print("Attempting to open report using Windows default browser...")
+                print(f"Attempting to open report using standard {sys.platform} browser launch...")
+            
             elif sys.platform.startswith('darwin'):
-                # Use webbrowser for macOS
+                 # Use standard Python webbrowser for macOS
                 webbrowser.open_new_tab(f"file://{report_path}")
-                print("Attempting to open report using macOS default browser...")
+                print(f"Attempting to open report using standard {sys.platform} browser launch...")
+            
             elif sys.platform.startswith('linux'):
-                # For Linux and WSL, use the 'xdg-open' command (standard for Linux desktops) or 'wslview' (better for WSL, if available), falling back to just printing the path.
-                try:
-                    # Try wslview first for WSL environments
-                    subprocess.run(['wslview', report_path], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                    print("Attempting to open report using 'wslview'...")
-                except (FileNotFoundError, subprocess.CalledProcessError):
-                    # Fallback to xdg-open for non-WSL Linux or if wslview is missing
-                    try:
-                        subprocess.run(['xdg-open', report_path], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                        print("Attempting to open report using 'xdg-open'...")
-                    except (FileNotFoundError, subprocess.CalledProcessError):
-                        print("\n>> Automatic open failed (wslview/xdg-open not found or working).")
-                        print(">> Please copy the file path and paste it into your browser manually.")
+                # --- WSL Fix: Use wslpath to get the Windows-compatible path ---
+                
+                # First, get the Windows path (e.g., \\wsl$\Ubuntu-24.04\home\user\...)
+                windows_path_process = subprocess.run(
+                    ['wslpath', '-w', report_path], 
+                    capture_output=True, 
+                    text=True, 
+                    check=True
+                )
+                windows_report_path = windows_path_process.stdout.strip()
+                
+                # Second, pass the Windows path to explorer.exe
+                subprocess.run(['explorer.exe', windows_report_path], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                print("Attempting to open report using 'explorer.exe' after wslpath conversion...")
+                
             else:
                 print("\n>> Automatic open failed for unknown OS.")
                 print(">> Please copy the file path and paste it into your browser manually.")
                 
+        except subprocess.CalledProcessError as e:
+            # Handle error from wslpath or explorer.exe
+            print(f"Warning: Failed to automatically open browser. Error: {e.stderr.strip()}")
+            print(">> Please copy the file path and paste it into your browser manually.")
         except Exception as e:
+            # Handle other general exceptions
             print(f"Warning: Failed to automatically open browser. Error: {e}")
             print(">> Please copy the file path and paste it into your browser manually.")
 
