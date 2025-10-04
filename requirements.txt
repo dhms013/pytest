@@ -5,3 +5,4 @@ requests
 Faker
 uuid
 pytest-html
+python-dotenv

@@ -39,6 +39,9 @@ jobs:
           export PYTHONPATH=.
           nohup python app.py > flask.log 2>&1 &
           sleep 5
+        env:
+          APP_HOST: ${{ secrets.APP_HOST }}
+          APP_PORT: ${{ secrets.APP_PORT }}
 
       - name: Run pytest tests
         working-directory: .
@@ -46,6 +49,9 @@ jobs:
           source venv/bin/activate
           export PYTHONPATH=.
           python tasks.py
+        env:
+          APP_HOST: ${{ secrets.APP_HOST }}
+          APP_PORT: ${{ secrets.APP_PORT }}
 
       - name: Upload Report
         uses: actions/upload-artifact@v4

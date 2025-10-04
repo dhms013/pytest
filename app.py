@@ -1,5 +1,11 @@
+import os
 from flask import Flask
-# Import all four method-specific blueprints
+from dotenv import load_dotenv
+
+load_dotenv()
+HOST = os.getenv('APP_HOST')
+PORT = int(os.getenv('APP_PORT'))
+
 from routes.post_users import post_bp
 from routes.get_users import get_bp
 from routes.put_users import put_bp
@@ -16,4 +22,4 @@ app.register_blueprint(delete_bp)
 if __name__ == '__main__':
     # Flask defaults to 127.0.0.1:5000. 
     # If you see 3000, you explicitly set it like this:
-    app.run(debug=True, host='127.0.0.1', port=3000)
+    app.run(debug=True, host=HOST, port=PORT)

@@ -2,14 +2,22 @@ import pytest
 import requests
 import random
 import string
+import os
 from faker import Faker
+from dotenv import load_dotenv
 
+load_dotenv()
 fake = Faker()
 
 @pytest.fixture(scope="session")
 def base_url():
-    # Replace with your actual API's base URL
-    return "http://localhost:3000"
+    host = os.getenv('APP_HOST')
+    port = os.getenv('APP_PORT')
+    
+    if host and port:
+        return f"http://{host}:{port}"
+    else:
+        raise ValueError("APP_HOST or APP_PORT not found in environment. Check .env file.")
 
 @pytest.fixture(scope="session")
 def shared_state():
